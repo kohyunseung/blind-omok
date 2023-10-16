@@ -4,7 +4,7 @@ import { ReactMouseEvent, ReactTouchEvent } from "@/types";
 
 interface Props {
   onBoardEnter: () => void;
-  onBoardMove: (e: ReactMouseEvent) => void;
+  onBoardMove: ({ x, y }: { x: number; y: number }) => void;
   onBoardLeave: () => void;
   onBoardSelect: () => void;
 }
@@ -32,8 +32,8 @@ const BoardEvent = ({
         (event.nativeEvent.offsetY * 100.0) /
         (event.target as HTMLElement).clientHeight;
 
-      coordX = Math.ceil((percentX - BOARD_OFFSET) / BOARD_SPACE + 0.5);
-      coordY = Math.ceil((percentY - BOARD_OFFSET) / BOARD_SPACE + 0.5);
+      coordX = Math.floor((percentX - BOARD_OFFSET) / BOARD_SPACE + 0.5);
+      coordY = Math.floor((percentY - BOARD_OFFSET) / BOARD_SPACE + 0.5);
     }
 
     if (coordX < 0) coordX = 0;
@@ -59,8 +59,8 @@ const BoardEvent = ({
       (x * 100.0) / (event.targetTouches[0].target as HTMLElement).clientWidth;
     const percentY =
       (y * 100.0) / (event.targetTouches[0].target as HTMLElement).clientHeight;
-    coordX = Math.ceil((percentX - BOARD_OFFSET) / BOARD_SPACE + 0.5);
-    coordY = Math.ceil((percentY - BOARD_OFFSET) / BOARD_SPACE - 1.5);
+    coordX = Math.floor((percentX - BOARD_OFFSET) / BOARD_SPACE + 0.5);
+    coordY = Math.floor((percentY - BOARD_OFFSET) / BOARD_SPACE - 1.5);
 
     if (coordX < 0) coordX = 0;
     if (coordY < 0) coordY = 0;
@@ -113,7 +113,7 @@ const BoardEvent = ({
 
   return (
     <div
-      className="omokboard__coord"
+      className="absolute w-full h-full top-0 bottom-0 z-10"
       onMouseEnter={onMouseEnter}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}

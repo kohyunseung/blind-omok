@@ -16,12 +16,12 @@ const Stone = ({ x, y, player, isEnd, type }: Props) => {
   return (
     <div
       className={cn(
-        "absolute w-8 h-8 translate-y-[-50%] translate-x-[-50%] rounded-full",
+        "absolute w-8 h-8 translate-y-[-50%] translate-x-[-50%] rounded-full transition",
         isEnd ? `bg-${player}` : "bg-zinc-500",
         type
           ? type === "hint"
             ? "opacity-60"
-            : "w-[2%] h-[2%] bg-red z-1"
+            : "w-[2%] h-[2%] bg-pink-500 z-1"
           : ""
       )}
       key={`${x}-${y}`}
